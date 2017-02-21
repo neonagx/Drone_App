@@ -1,5 +1,5 @@
 {
-  "name": "drone-app",
+  "name": "drone-app-server",
   "version": "1.0.0",
   "description": "allows professionals to find drone pilots for lessons and flight requests",
   "main": "server.js",
