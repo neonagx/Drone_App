@@ -9,7 +9,6 @@ const User = new mongoose.Schema({
   phone     : { type: String },
   image     : Image,
   location  : { type: String },
-  lessons   : { type: Number },
   admin     : { type: Boolean, default: false},
   forgotPw  : { type: String }
 })
