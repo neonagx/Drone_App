@@ -18,6 +18,7 @@
     "cors": "^2.8.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
-    "mongoose": "^4.8.4"
+    "mongoose": "^4.8.4",
+    "mongoose-deep-populate": "^3.0.0"
   }
 }
