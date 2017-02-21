@@ -4,8 +4,20 @@
   "description": "allows professionals to find drone pilots for lessons and flight requests",
   "main": "server.js",
   "scripts": {
+    "server": "node -r dotenv/config server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "respository": {
+    "type": "git",
+    "url": "git+https://github.com/neonagx/Drone_App_Back.git"
+  },
   "author": "Paul Baik",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.4"
+  }
 }
