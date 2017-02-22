@@ -2,10 +2,7 @@
 const express     = require('express')
 const router      = express.Router()
 const users       = require('./controllers/users')
-const {
-  handleSuccess,
-  handleError
-}                 = require('./libs/response')
+const res         = require('./libs/response')
 
 module.exports = () => {
 
