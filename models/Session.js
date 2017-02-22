@@ -2,14 +2,16 @@
 const mongoose     = require('mongoose')
 const deepPopulate = require('mongoose-deep-populate')(mongoose)
 const User         = require('./User')
+const Location     = require('./sub_docs/Location')
+const Availability = require('./sub_docs/Availability')
 
 const Session = new mongoose.Schema({
-  user          : { type: String, ref: 'User', required: true },
-  lesson        : { type: Boolean, default: false },
-  footage       : { type: Boolean, default: false },
-  maintenance   : { type: Boolean, default: false },
-  status        : { type: String },
-  location      : { type: String },
+  user          : { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  profUser      : { type: mongoose.Schema.Types.ObjectId, ref: 'ProfUser', required: true },
+  requests      : [{ type: Number, unique: true }],
+  availability  : Availability,
+  status        : { type: Number, default: 0 },
+  location      : Location,
   duration      : { type: Number, required: true },
   phone         : { type: String, required: true },
   total         : { type: Number, required: true },
