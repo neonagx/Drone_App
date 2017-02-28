@@ -12,14 +12,15 @@ module.exports = () => {
   PRIMARY ROUTES
   */
   router.route('/users')
+    .get(users.get)
     .post(users.create)
     .put(users.update)
-    .get(users.get);
+    .delete(users.destroy)
 
-  router.route('/sessions')
-    .get(authCheck, sessions.get)
-    .post(authCheck, sessions.create)
-    .put(authCheck, sessions.update)
+  // router.route('/sessions')
+  //   .get(authCheck, sessions.get)
+  //   .post(authCheck, sessions.create)
+  //   .put(authCheck, sessions.update)
 
   return router
 

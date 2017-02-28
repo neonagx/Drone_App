@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = (res, err, data, message) => {
-  let status = error ? 400 : 200
+  let status = err ? 400 : 200
   let payload = { status, message }
   if (err) { payload.err = err }
   if (data) { payload.data = data }

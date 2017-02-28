@@ -7,7 +7,9 @@ const jwt       = require('jsonwebtoken')
 
 const authInit = (req, res) => {
   const email = req.body.email
-  const query = User.findOneWithPayment(email)
+  console.log('this is email', email)
+  const query = User.findById(id)
+  console.log('user', req.body.user)
   query
     .then(user => {
       if(!user) {
@@ -19,7 +21,7 @@ const authInit = (req, res) => {
           .then(user => {
             const token = signToken(user)
             Session.findByUser(user._id)
-              .then(gide => respond(res, null, {session, token, user}, `Welcome back, ${user.firstName}`))
+              .then(session => respond(res, null, {session, token, user}, `Welcome back, ${user.firstName}`))
               .catch(err => respond(res, null, {token, user}, `Welcome back ${user.firstName}`))
           })
           .catch(err => respond(res, err, null, 'Error in updating user session'))
