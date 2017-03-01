@@ -14,6 +14,7 @@ const User = new mongoose.Schema({
   image     : Image,
   //TODO: change property to location
   location  : Location,
+  loc       : { type: [Number], index: '2dsphere'},
   admin     : { type: Boolean, default: false },
   forgotPw  : { type: String }
 }, options)

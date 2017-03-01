@@ -6,8 +6,7 @@ const Location = new mongoose.Schema({
   unit      : { type: String },
   zip       : { type: String },
   city      : { type: String },
-  state     : { type: String, default: 'CA' },
-  loc       : { type: [Number], index: '2dsphere' }
+  state     : { type: String }
 }, { _id: false })
 
 module.exports = Location

@@ -70,12 +70,9 @@ const findLocation = (req, res, next) => {
   coords[0] = req.query.longitude
   coords[1] = req.query.latitude
 
-  User.find({
-    loc: {
-      $near: coords,
-      $maxDistance: maxDistance
-    }
-  }).limit(limit).exec(function(err, location){
+  User.find()
+    .near('loc', { center: coords }, { spherical: true }, maxDistance)
+    .limit(limit).exec(function(err, location){
     if(err){
       return res.json(500, 'not found')
     } else {
