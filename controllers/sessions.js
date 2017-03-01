@@ -1,27 +1,29 @@
 'use strict'
 const User      = require('../models/User')
 const Session   = require('../models/Session')
+const respond = require('../libs/response')
 
 const get = (req, res) => {
-  const id = req.query.id
-  const type = req.query.type
-  let query
-  if(id) {
-    query = User.findByUserId(id)
-  } else {
-    query = Session.findBySessionId(id)
-  }
+  const session = req.query
+  console.log('this is sessions', session)
+  // let query
+  // if(id) {
+  //   query = User.findByUserId(id)
+  // } else {
+  //   query = Session.findById(id)
+  // }
+  const query = Session.find({session : req.session }).exec()
   query
     .then((data) => {
       const response = id ? {session: data}: {sessions : data}
       respond(res, null, response, `Fetched Session(s) for ${req.currentUser.username}`)
     })
-    .catch(err => respond(res, err, null, `Error in retrieving  ${type} sessions`))
+    .catch(err => respond(res, err, null, `Error in retrieving sessions`))
 }
 
 const create = (req, res) => {
   const param = req.body
-  param.user = req.currentUser._id
+  console.log(param)
   const session = new Session(param)
   session.save()
     .then(session => {

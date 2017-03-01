@@ -18,10 +18,11 @@ module.exports = () => {
     .get(users.show)
     .put(users.update)
     .delete(users.destroy)
-  // router.route('/sessions')
-  //   .get(authCheck, sessions.get)
-  //   .post(authCheck, sessions.create)
-  //   .put(authCheck, sessions.update)
+
+  router.route('/sessions')
+    .get(sessions.get)
+    .post(sessions.create)
+    .put(sessions.update)
 
   return router
 

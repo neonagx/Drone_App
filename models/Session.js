@@ -7,8 +7,8 @@ const Availability = require('./sub_docs/Availability')
 
 const Session = new mongoose.Schema({
   user          : { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  profUser      : { type: mongoose.Schema.Types.ObjectId, ref: 'ProfUser', required: true },
-  requests      : [{ type: Number, unique: true }],
+  // profUser      : { type: mongoose.Schema.Types.ObjectId, ref: 'ProfUser', required: true },
+  // requests      : [{ type: Number, unique: true }],
   // availability  : Availability,
   status        : { type: Number, default: 0 },
   location      : Location,
