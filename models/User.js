@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const options  = { discriminatorKey: 'kind' }
 const Image    = require('./sub_docs/Image')
+const Location    = require('./sub_docs/Location')
 const bcrypt   = require('bcryptjs')
 
 const User = new mongoose.Schema({
@@ -12,10 +13,7 @@ const User = new mongoose.Schema({
   phone     : { type: String },
   image     : Image,
   //TODO: change property to location
-  loc: {
-    type: [Number],
-    index: '2d'
-  },
+  location  : Location,
   admin     : { type: Boolean, default: false },
   forgotPw  : { type: String }
 }, options)

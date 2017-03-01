@@ -7,11 +7,20 @@ const get = (req, res) => {
   // console.log('this is get')
   // res.send({})
   const user = req.query
-  console.log(user)
+  console.log('this is user', user)
   const query = User.find({user : req.user}).exec()
   query
     .then(user => respond(res, null, { user }, 'Search result for user'))
     .catch(err => respond(res, err, null, 'Error in searching user'))
+}
+
+const show = (req, res) => {
+  const id = req.params.id
+  console.log('is this going to specific id?', id)
+  User.findById(id, function(err, User){
+    if(err) res.json({message: 'Cannot find user'})
+    res.json(User)
+  })
 }
 
 const create = (req, res) => {
@@ -37,30 +46,31 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
+  const id = req.params.id
   const updates = req.body.updates
-  const query  = User.findByIdAndUpdate(req.currentUser._id, updates, {new: true}).exec()
+  console.log('going to updates', updates)
+  const query  = User.findByIdAndUpdate(id, updates, {new: true}).exec()
   query
     .then(user => respond(res, null, { user }, 'Profile updated sucessfully'))
     .catch(err => respond(res, err, null, 'Error in updating user profile'))
 }
 
 const destroy = (req, res) => {
-  const id = req.query.id
-  const query = User.findByIdAndRemove(id).exec()
-  query
-    .then(user => respond(res, null, {}, 'User successfully removed from DB'))
-    .catch(err => respond(res, err, null, 'Error in removing user'))
+  const id = req.params.id
+  console.log('this is delete', id)
+  User.findByIdAndRemove(id, function(err){
+    if(err) respond({ message: "error in deleting"})
+  }).then(user => respond(res, null, { user }, 'Profile deleted'))
 }
 
 const findLocation = (req, res, next) => {
   const limit = req.query.limit || 10
-  const maxDistance = req.query.distance || 8
-  maxDistance = 6371
+  const maxDistance = 6371
   const coords = []
   coords[0] = req.query.longitude
   coords[1] = req.query.latitude
 
-  Location.find({
+  User.find({
     loc: {
       $near: coords,
       $maxDistance: maxDistance
@@ -74,4 +84,4 @@ const findLocation = (req, res, next) => {
   })
 }
 
-module.exports = { get, create, update, destroy, findLocation}
+module.exports = { get, show, create, update, destroy, findLocation}

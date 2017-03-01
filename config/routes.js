@@ -14,9 +14,10 @@ module.exports = () => {
   router.route('/users')
     .get(users.get)
     .post(users.create)
+  router.route('/users/:id')
+    .get(users.show)
     .put(users.update)
     .delete(users.destroy)
-
   // router.route('/sessions')
   //   .get(authCheck, sessions.get)
   //   .post(authCheck, sessions.create)
