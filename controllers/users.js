@@ -58,9 +58,10 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   const id = req.params.id
   console.log('this is delete', id)
-  User.findByIdAndRemove(id, function(err){
-    if(err) respond({ message: "error in deleting"})
-  }).then(user => respond(res, null, { user }, 'Profile deleted'))
+  User.findByIdAndRemove({id: id}).exec()
+  query
+    .then(user => respond(res, null, { user }, 'Profile deleted'))
+    .catch(err => respond(res, err, null, 'Error in deleting user'))
 }
 
 const findLocation = (req, res, next) => {

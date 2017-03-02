@@ -14,15 +14,19 @@ module.exports = () => {
   router.route('/users')
     .get(users.get)
     .post(users.create)
+
   router.route('/users/:id')
     .get(users.show)
     .put(users.update)
     .delete(users.destroy)
 
   router.route('/sessions')
-    .get(sessions.get)
-    .post(sessions.create)
-    .put(sessions.update)
+    .get(sessions.getSession)
+    .post(sessions.createSession)
+
+  router.route('/sessions/:id')
+    .put(sessions.updateSession)
+    .delete(sessions.deleteSession)
 
   return router
 

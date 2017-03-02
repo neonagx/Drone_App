@@ -12,7 +12,7 @@ const User = new mongoose.Schema({
   lastName  : { type: String },
   phone     : { type: String },
   image     : Image,
-  //TODO: change property to location
+  pilot     : { type: String, ref: 'Pilot'},
   location  : Location,
   loc       : { type: [Number], index: '2dsphere'},
   admin     : { type: Boolean, default: false },

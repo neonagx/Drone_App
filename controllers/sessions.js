@@ -3,25 +3,15 @@ const User      = require('../models/User')
 const Session   = require('../models/Session')
 const respond = require('../libs/response')
 
-const get = (req, res) => {
+const getSession = (req, res) => {
   const session = req.query
-  console.log('this is sessions', session)
-  // let query
-  // if(id) {
-  //   query = User.findByUserId(id)
-  // } else {
-  //   query = Session.findById(id)
-  // }
-  const query = Session.find({ session : req.session._id }).exec()
+  const query = Session.find({session: req.session}).exec()
   query
-    .then((data) => {
-      const response = id ? {session: data}: {sessions : data}
-      respond(res, null, response, `Fetched Session(s) for ${req.currentUser.username}`)
-    })
-    .catch(err => respond(res, err, null, `Error in retrieving sessions`))
+    .then(sessions => respond(res, null, {sessions}, 'Fetched sessions for user'))
+    .catch(err => respond(res, err, null, 'Error in retrieving sessions for user'))
 }
 
-const create = (req, res) => {
+const createSession = (req, res) => {
   const param = req.body
   console.log(param)
   const session = new Session(param)
@@ -33,25 +23,25 @@ const create = (req, res) => {
     .catch(err => respond(res, err, null, 'Error in creating session'))
 }
 
-const update = (req, res) => {
-  const updateReq = req.body.updates
-  const updates = querySerializer(updateReq, 'update')
-  const queryParam = { _id: req.body.id}
-  if(updateReq && req.body.id) {
-    const query = Session.findOneAndUpdate(queryParam, updates, {new: true})
-                .populate('tour')
-                .populate('user', 'title image firstName lastName')
-                .exec()
+const updateSession = (req, res) => {
+  const session = req.params.id
+  const updates = req.body.updates
+  console.log('this is session id', session)
+  console.log('this is updates in session')
+    const query = Session.findByIdAndUpdate(session, updates, {new: true}).exec()
     query
       .then((session) => {
-        const data = { booking }
+        const data = { session }
         respond(res, null, data, 'Session successfully updated')
-
       })
-      .catch(err => respond(res, err, null, 'Error in updating booking'))
-  } else {
-    respond(res, 'Wrong request parameters', null, 'Please check for id and update request')
-  }
+      .catch(err => respond(res, err, null, 'Error in updating booking' ))
 }
 
-module.exports = {get, create, update}
+const deleteSession = (req, res) => {
+  const query = Session.findOneAndRemove({_id: req.query._id}).exec()
+  query
+    .then(session => respond(res, null, { session }, 'Session deleted'))
+    .catch(err => respond(res, err, null, 'Error in deleting session'))
+}
+
+module.exports = {getSession, createSession, updateSession, deleteSession}
