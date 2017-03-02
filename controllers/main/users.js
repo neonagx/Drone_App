@@ -1,12 +1,12 @@
 'use strict'
-const User      = require('../models/User')
-const respond   = require('../libs/responder')
-const { authInit } = require('../libs/authentication')
+const User      = require('../../models/User')
+const respond   = require('../../libs/responder')
+const { authInit } = require('../../libs/authentication')
 
 const get = (req, res) => {
   // console.log('this is get')
   // res.send({})
-  const user = req.query
+  const user = req.user
   console.log('this is user', user)
   const query = User.find({user : req.user}).exec()
   query

@@ -1,9 +1,9 @@
 'use strict'
-const User      = require('../models/User')
-const Session   = require('../models/Session')
-const respond = require('../libs/responder')
+// const User      = require('../models/User')
+const Session   = require('../../models/Session')
+const respond = require('../../libs/responder')
 
-const getSession = (req, res) => {
+const get = (req, res) => {
   const session = req.query
   const query = Session.find({session: req.session}).exec()
   query
@@ -11,7 +11,7 @@ const getSession = (req, res) => {
     .catch(err => respond(res, err, null, 'Error in retrieving sessions for user'))
 }
 
-const createSession = (req, res) => {
+const create = (req, res) => {
   const param = req.body
   console.log(param)
   const session = new Session(param)
@@ -23,7 +23,15 @@ const createSession = (req, res) => {
     .catch(err => respond(res, err, null, 'Error in creating session'))
 }
 
-const updateSession = (req, res) => {
+const show = (req, res) => {
+  const id = req.params.id
+  Session.findById(id, (err, Session) => {
+    if(err) res.json({message: 'cannot find session'})
+    res.json(Session)
+  })
+}
+
+const update = (req, res) => {
   const session = req.params.id
   const updates = req.body.updates
   console.log('this is session id', session)
@@ -37,7 +45,7 @@ const updateSession = (req, res) => {
       .catch(err => respond(res, err, null, 'Error in updating booking' ))
 }
 
-const deleteSession = (req, res) => {
+const destroy = (req, res) => {
   const id = req.query.id
   const query = Session.findOneAndRemove(id).exec()
   console.log(query)
@@ -51,4 +59,4 @@ const deleteSession = (req, res) => {
   //   .catch(err => respond(res, err, null, 'Error in deleting session'))
 }
 
-module.exports = {getSession, createSession, updateSession, deleteSession}
+module.exports = {get, show, create, update, destroy}
