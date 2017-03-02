@@ -1,6 +1,6 @@
 'use strict'
 const User      = require('../models/User')
-const respond   = require('../libs/response')
+const respond   = require('../libs/responder')
 const { authInit } = require('../libs/authentication')
 
 const get = (req, res) => {

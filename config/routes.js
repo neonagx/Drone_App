@@ -3,7 +3,7 @@ const express     = require('express')
 const router      = express.Router()
 const users       = require('../controllers/users')
 const sessions    = require('../controllers/sessions')
-const res         = require('../libs/response')
+const res         = require('../libs/responder')
 const { authInit, authCheck, forgot, reset } = require('../libs/authentication')
 
 module.exports = () => {

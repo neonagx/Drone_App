@@ -1,7 +1,7 @@
 'use strict'
 const User      = require('../models/User')
 const Session   = require('../models/Session')
-const respond   = require('./response')
+const respond   = require('./responder')
 const jwt       = require('jsonwebtoken')
 // const agenda    = require('')
 
