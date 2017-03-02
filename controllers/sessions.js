@@ -12,7 +12,7 @@ const get = (req, res) => {
   // } else {
   //   query = Session.findById(id)
   // }
-  const query = Session.find({session : req.session }).exec()
+  const query = Session.find({ session : req.session._id }).exec()
   query
     .then((data) => {
       const response = id ? {session: data}: {sessions : data}
@@ -27,7 +27,7 @@ const create = (req, res) => {
   const session = new Session(param)
   session.save()
     .then(session => {
-      respond(res, null, { sesssion }, 'Session has been created')
+      respond(res, null, { session }, 'Session has been created')
       const data = { session, user: req.currentUser }
     })
     .catch(err => respond(res, err, null, 'Error in creating session'))
